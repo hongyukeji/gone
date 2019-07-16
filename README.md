@@ -1,2 +1,2 @@
 # iki-go
-go-lib
+golang 工具包
