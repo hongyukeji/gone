@@ -1,7 +1,7 @@
 package file_test
 
 import (
-	"gone/file"
+	file "github.com/wx11055/gone/file"
 	"testing"
 )
 

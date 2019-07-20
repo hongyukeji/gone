@@ -1,4 +1,4 @@
-module gone
+module github.com/wx11055/gone
 
 go 1.12
 

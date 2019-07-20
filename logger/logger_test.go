@@ -2,9 +2,9 @@ package logger_test
 
 import (
 	"fmt"
+	"github.com/wx11055/gone/logger"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"gone/logger"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"

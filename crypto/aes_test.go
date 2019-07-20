@@ -1,8 +1,7 @@
-package _crypto_test
+package crypto_test
 
 import (
 	"crypto/aes"
-	"gone/crypto"
 	"testing"
 )
 

@@ -1,4 +1,4 @@
-package _uuid
+package uuid
 
 import (
 	"crypto/md5"

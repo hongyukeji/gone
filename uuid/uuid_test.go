@@ -1,7 +1,7 @@
-package _uuid_test
+package uuid_test
 
 import (
-	"gone/uuid"
+	"github.com/wx11055/gone/uuid"
 	"testing"
 )
 

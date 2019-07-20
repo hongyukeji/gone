@@ -1,11 +1,11 @@
-package _crypto
+package crypto
 
 import (
 	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/hex"
-	"gone/conv"
+	"github.com/wx11055/gone/conv"
 )
 
 type aes_mode int

@@ -3,7 +3,7 @@ package logger
 import (
 	"errors"
 	"fmt"
-	"gone/file"
+	"github.com/wx11055/gone/file"
 	"log"
 	"os"
 	"path"

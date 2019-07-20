@@ -1,7 +1,7 @@
 package idworker_test
 
 import (
-	"gone/idwoker"
+	"github.com/wx11055/gone/idwoker"
 	"strconv"
 	"testing"
 )
