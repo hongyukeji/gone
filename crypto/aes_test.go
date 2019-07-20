@@ -2,7 +2,7 @@ package _crypto_test
 
 import (
 	"crypto/aes"
-	"iki-go/crypto"
+	"gone/crypto"
 	"testing"
 )
 

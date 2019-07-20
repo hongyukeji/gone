@@ -1,7 +1,7 @@
 package file_test
 
 import (
-	"iki-go/file"
+	"gone/file"
 	"testing"
 )
 

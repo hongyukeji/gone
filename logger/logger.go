@@ -3,7 +3,7 @@ package logger
 import (
 	"errors"
 	"fmt"
-	"iki-go/file"
+	"gone/file"
 	"log"
 	"os"
 	"path"

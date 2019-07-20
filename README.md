@@ -1,2 +1,2 @@
-# iki-go
+# gone
 golang 工具包

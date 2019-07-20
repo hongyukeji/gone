@@ -1,7 +1,7 @@
 package _uuid_test
 
 import (
-	"iki-go/uuid"
+	"gone/uuid"
 	"testing"
 )
 

@@ -1,7 +1,7 @@
 package idworker_test
 
 import (
-	"iki-go/idwoker"
+	"gone/idwoker"
 	"strconv"
 	"testing"
 )
