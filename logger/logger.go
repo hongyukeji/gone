@@ -3,7 +3,6 @@ package logger
 import (
 	"errors"
 	"fmt"
-	"github.com/wx11055/gone/file"
 	"log"
 	"os"
 	"path"
@@ -95,7 +94,12 @@ func New(strLevel string, mode PrintMode, baseFolder string, flag int) (*Logger,
 	logger := new(Logger)
 	logger.level = level
 	if mode == FileMode {
-		file.CreateDirs(baseFolder)
+		if !IsExist(baseFolder) {
+			err := os.MkdirAll(baseFolder, os.ModePerm)
+			if err != nil {
+				return nil, err
+			}
+		}
 		baseLogger, baseFile, err = fileMode(baseFolder, flag)
 		if err != nil {
 			return nil, err
@@ -107,6 +111,20 @@ func New(strLevel string, mode PrintMode, baseFolder string, flag int) (*Logger,
 	logger.baseFile = baseFile
 
 	return logger, nil
+}
+func IsExist(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		if os.IsExist(err) {
+			return true
+		}
+		if os.IsNotExist(err) {
+			return false
+		}
+		fmt.Println(err)
+		return false
+	}
+	return true
 }
 
 // It's dangerous to call the method on logging
@@ -135,28 +153,46 @@ func (logger *Logger) doPrintf(level int, printLevel string, format string, a ..
 	}
 }
 
-func (logger *Logger) Debug(format string, a ...interface{}) {
+func (logger *Logger) Debugf(format string, a ...interface{}) {
 	logger.doPrintf(DebugLevel, printDebugLevel, format, a...)
 }
-
-func (logger *Logger) Info(format string, a ...interface{}) {
-	logger.doPrintf(InfoLevel, printInfoLevel, format, a...)
+func (logger *Logger) Debug(a ...interface{}) {
+	logger.doPrintf(DebugLevel, printWarnLevel, "%v", a...)
 }
 
-func (logger *Logger) Warn(format string, a ...interface{}) {
+func (logger *Logger) Infof(format string, a ...interface{}) {
+	logger.doPrintf(InfoLevel, printInfoLevel, format, a...)
+}
+func (logger *Logger) Info(a ...interface{}) {
+	logger.doPrintf(InfoLevel, printWarnLevel, "%v", a...)
+}
+func (logger *Logger) Warnf(format string, a ...interface{}) {
 	logger.doPrintf(WarnLevel, printWarnLevel, format, a...)
 }
 
-func (logger *Logger) Error(format string, a ...interface{}) {
+func (logger *Logger) Warn(a ...interface{}) {
+	logger.doPrintf(WarnLevel, printWarnLevel, "%v", a...)
+}
+
+func (logger *Logger) Errorf(format string, a ...interface{}) {
 	logger.doPrintf(ErrorLevel, printErrorLevel, format, a...)
 }
-
-func (logger *Logger) Fatal(format string, a ...interface{}) {
-	logger.doPrintf(FatalLevel, printFatalLevel, format, a...)
+func (logger *Logger) Error(a ...interface{}) {
+	logger.doPrintf(ErrorLevel, printWarnLevel, "%v", a...)
 }
 
-func (logger *Logger) Panic(format string, a ...interface{}) {
+func (logger *Logger) Fatalf(format string, a ...interface{}) {
+	logger.doPrintf(FatalLevel, printFatalLevel, format, a...)
+}
+func (logger *Logger) Fatal(a ...interface{}) {
+	logger.doPrintf(FatalLevel, printWarnLevel, "%v", a...)
+}
+
+func (logger *Logger) Panicf(format string, a ...interface{}) {
 	logger.doPrintf(PanicLevel, printPanicLevel, format, a...)
+}
+func (logger *Logger) Panic(a ...interface{}) {
+	logger.doPrintf(PanicLevel, printWarnLevel, "%v", a...)
 }
 
 var gLogger, _ = New("debug", ConsoleMode, "", log.LstdFlags)
@@ -167,27 +203,45 @@ func Export(logger *Logger) {
 		gLogger = logger
 	}
 }
+func Debug(a ...interface{}) {
+	gLogger.Debug(a...)
+}
+func Info(a ...interface{}) {
+	gLogger.Info(a...)
+}
+func Warn(a ...interface{}) {
+	gLogger.Warn(a...)
+}
+func Error(a ...interface{}) {
+	gLogger.Error(a...)
+}
+func Fatal(a ...interface{}) {
+	gLogger.Fatal(a...)
+}
+func Panic(a ...interface{}) {
+	gLogger.Panic(a...)
+}
 
-func Debug(format string, a ...interface{}) {
+func Debugf(format string, a ...interface{}) {
 	gLogger.doPrintf(DebugLevel, printDebugLevel, format, a...)
 }
 
-func Info(format string, a ...interface{}) {
+func Infof(format string, a ...interface{}) {
 	gLogger.doPrintf(InfoLevel, printInfoLevel, format, a...)
 }
 
-func Warn(format string, a ...interface{}) {
+func Warnf(format string, a ...interface{}) {
 	gLogger.doPrintf(WarnLevel, printWarnLevel, format, a...)
 }
 
-func Error(format string, a ...interface{}) {
+func Errorf(format string, a ...interface{}) {
 	gLogger.doPrintf(ErrorLevel, printErrorLevel, format, a...)
 }
 
-func Fatal(format string, a ...interface{}) {
+func Fatalf(format string, a ...interface{}) {
 	gLogger.doPrintf(FatalLevel, printFatalLevel, format, a...)
 }
-func Panic(format string, a ...interface{}) {
+func Panicf(format string, a ...interface{}) {
 	gLogger.doPrintf(PanicLevel, printPanicLevel, format, a...)
 }
 

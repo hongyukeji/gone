@@ -20,7 +20,7 @@ const (
 	aes_256          = 256 / 8
 )
 
-var byte2str = _conv.BytesToStr
+var byte2str = conv.BytesToStr
 
 //https://zh.wikipedia.org/wiki/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F#%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%BC%8F
 // 分组工作密码模式
